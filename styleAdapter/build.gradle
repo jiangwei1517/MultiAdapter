@@ -1,12 +1,23 @@
 apply plugin: 'com.android.library'
-apply from : rootProject.file('gradle/build.android.gradle')
-
+apply from: rootProject.file('gradle/build.android.gradle')
+apply plugin: 'maven'
 android {
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://127.0.0.1:8081/repository/com.jiangwei.androidlib/") {
+            authentication(userName: "jiangwei1517", password: "q53934298")
+        }
+        pom.version = "1.0.0"
+        pom.artifactId = "multiadapter"
+        pom.groupId = "com.jiangwei"
     }
 }
 
